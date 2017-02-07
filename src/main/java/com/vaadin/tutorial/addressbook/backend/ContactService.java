@@ -40,10 +40,13 @@ public class ContactService {
                 contact.setLastName(lnames[r.nextInt(fnames.length)]);
                 contact.setEmail(contact.getFirstName().toLowerCase() + "@"
                         + contact.getLastName().toLowerCase() + ".com");
-                contact.setPhone("+ 358 555 " + (100 + r.nextInt(900)));
+                contact.setTask("TASK #" + (100 + r.nextInt(900)));
                 cal.set(1930 + r.nextInt(70),
                         r.nextInt(11), r.nextInt(28));
-                contact.setBirthDate(cal.getTime());
+                contact.setStartDate(cal.getTime());
+                contact.setEndDate(cal.getTime());
+                
+                
                 contactService.save(contact);
             }
             instance = contactService;

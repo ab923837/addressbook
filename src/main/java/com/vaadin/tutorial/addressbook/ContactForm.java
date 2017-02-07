@@ -25,12 +25,13 @@ public class ContactForm extends FormLayout {
 
     Button save = new Button("Save", this::save);
     Button cancel = new Button("Cancel", this::cancel);
+    Button remove = new Button("Remove", this::remove);
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
-    TextField phone = new TextField("Phone");
+    TextField task = new TextField("Task");
     TextField email = new TextField("Email");
-    DateField birthDate = new DateField("Birth date");
-    
+    DateField startDate = new DateField("Start date");
+    DateField endDate = new DateField("Expected end date");
 
     Contact contact;
 
@@ -58,10 +59,10 @@ public class ContactForm extends FormLayout {
         setSizeUndefined();
         setMargin(true);
 
-        HorizontalLayout actions = new HorizontalLayout(save, cancel);
+        HorizontalLayout actions = new HorizontalLayout(save, cancel, remove);
         actions.setSpacing(true);
 
-        addComponents(actions, firstName, lastName, phone, email, birthDate);
+        addComponents(actions, firstName, lastName, task, email, startDate, endDate);
     }
 
     /*
@@ -107,6 +108,13 @@ public class ContactForm extends FormLayout {
             firstName.focus();
         }
         setVisible(contact != null);
+    }
+    
+    private void remove(Button.ClickEvent event) {
+        getUI().service.delete(contact);
+        String msg = String.format("REMOVED THE TASK " + contact.getTask());
+        Notification.show(msg, Type.TRAY_NOTIFICATION);
+        getUI().refreshContacts();
     }
 
     @Override
